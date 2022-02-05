@@ -1,30 +1,24 @@
-import React from "react";
-import Api from "./API/Api";
+import React, { useState, useEffect } from "react";
+import { api } from "./API/Api";
 
-function App() {
-  const [response, setResponse] = React.useState<any>([])
+const App = () => {
+  const [response, setResponse] = useState([""]);
 
-  React.useEffect(function () {
-    const Res = async () => {
-      const getRes = await new Api().getApi();
-      setResponse(getRes);
-      console.log(getRes);
-    };
+  const Res = async () => {
+    const getRes = await api.getApi();
+    setResponse(getRes);
+    console.log(getRes);
+  };
+  useEffect(() => {
     Res();
   }, []);
 
   return (
     <div>
-      {response.map(function(weather: any){
-        return (
-          <>
-          <p>{weather.id}</p>
-          <p>{weather.title}</p>
-          </>
-        )
-      })}
+      <h1>Hello</h1>
+      <div>{JSON.stringify(response)}</div>
     </div>
-  )
-}
+  );
+};
 
 export default App;

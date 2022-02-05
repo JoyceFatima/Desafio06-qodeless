@@ -5,7 +5,8 @@ const baseURL = 'https://aps-weather-app.herokuapp.com/weather?cityName=Petrolin
 class Api {
   async getApi(){
     return axios.get(baseURL).then((response) => (response.data))
+    .catch((err) => err);
   }
 }
 
-export default Api;
+export const api = new Api();
