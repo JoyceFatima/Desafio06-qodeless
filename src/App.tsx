@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Api from "./API/Api";
 
 function App() {
+  const [response, setResponse] = React.useState<any>([])
+
+  React.useEffect(function () {
+    const Res = async () => {
+      const getRes = await new Api().getApi();
+      setResponse(getRes);
+      console.log(getRes);
+    };
+    Res();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {response.map(function(weather: any){
+        return (
+          <>
+          <p>{weather.id}</p>
+          <p>{weather.title}</p>
+          </>
+        )
+      })}
     </div>
-  );
+  )
 }
 
 export default App;
